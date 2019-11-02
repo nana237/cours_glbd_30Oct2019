@@ -1,0 +1,6 @@
+c:\users\clement\documents\visual studio 2012\Projects\first\first\bin\Debug\first.exe.config
+C:\Users\Clement\Documents\Visual Studio 2012\Projects\first\first\bin\Debug\first.exe
+C:\Users\Clement\Documents\Visual Studio 2012\Projects\first\first\bin\Debug\first.pdb
+C:\Users\Clement\Documents\Visual Studio 2012\Projects\first\first\obj\Debug\first.csprojResolveAssemblyReference.cache
+C:\Users\Clement\Documents\Visual Studio 2012\Projects\first\first\obj\Debug\first.exe
+C:\Users\Clement\Documents\Visual Studio 2012\Projects\first\first\obj\Debug\first.pdb
