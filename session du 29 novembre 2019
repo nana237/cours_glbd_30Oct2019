@@ -1,0 +1,183 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Session_du_20_Nov_2019
+{
+    class Program
+    {
+        static double [,] notes = new double [10,10]; // Variable exercice 1
+        static double[] moyenne = new double[10]; // Variable Exercice 1
+        static double [][] notes2; // Variable exercice 3;
+        static double[] moyenne2; // Variable Coefficient Exercice 3
+        static byte [][] coef; // Variable coefficient Exercice 3
+
+        /// <summary>
+        /// Exercie 1
+        /// Méthode static permettant de lire les notes de 10 étudiants dans 10 matières
+        /// </summary>
+        static void fillNotes() {
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; i++) {
+                    Console.WriteLine("Donner la note de l'étudiant ", (i + 1), " à la matière", (j + 1));
+                    notes[i,j] = Double.Parse(Console.ReadLine());
+                } 
+            }
+        }
+
+        /// <summary>
+        /// Exercice 1
+        /// Permet de calculer la moyenne des notes de chaque étudiant
+        /// </summary>
+        static void computeAVG() {
+            for (int i = 0; i < 10; i++)
+            {
+                moyenne[i] = 0.0;
+                for (int j = 0; j < 10; j++) {
+                    moyenne[i] = notes[i, j] + moyenne[i];
+                }
+                moyenne[i] = moyenne[i] / 10;
+            }
+        }
+
+        /// <summary>
+        /// Exercice 3
+        /// Fonction fillnote2 permettant d'entrer les notes de n étudiants dans m matières
+        /// </summary>
+        /// <param name="nb">Le nombre d'étudiant</param>
+        static void fillnote2(int nb) {
+            notes2 = new double[nb][];
+            coef = new byte[nb][];
+            for (int i = 0; i < nb; i++) {
+                byte mat; 
+                do{
+                    Console.WriteLine("Donner le nombre de matière de l'étudiant n°"+(i+1));
+                    mat = Byte.Parse(Console.ReadLine());
+                    if(mat < 0){
+                        Console.WriteLine("Mauvaise Valeur....\n Donner une valeur entière > 0");
+                    }
+                }while(mat <0);
+                notes2[i] = new double[mat];
+                coef[i] = new byte[mat];
+                Console.WriteLine("Saisie des notes de l'étudiant n°"+(i+1));
+                for (int j = 0; j < mat; j++) {
+                    Console.WriteLine("********** Lecture de la note ***********");
+                    notes2[i][j] = readNote((j + 1), 0, 20);
+                    Console.WriteLine("********** Lecture du coefficient ************");
+                    coef[i][j] = readValeur((j+1), (byte) 1, (byte) 10);                
+                }
+            }
+        }
+
+        /// <summary>
+        /// Exercice 3 Fonction readNote Polymorphe
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        static double readNote(int pos, double min, double max) {
+            double note;
+            do
+            {
+                Console.WriteLine("Donner la note n° " + pos);
+                note = Int32.Parse(Console.ReadLine());
+            } while ((note < min) || (note > max));
+            return note;
+        }
+        /// <summary>
+        /// Fonction ReadValeur Polymorphe
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        static int readValeur(int pos, int min, int max)
+        {
+            int valeur;
+            do
+            {
+                Console.WriteLine("Donner la Valeur n° " + pos);
+                valeur = Int32.Parse(Console.ReadLine());
+            } while ((valeur < min) || (valeur > max));
+            return valeur;
+        }
+
+        /// <summary>
+        /// Fonction ReadValeur Polymorphe
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        static short readValeur(int pos, short min, short max)
+        {
+            short valeur;
+            do
+            {
+                Console.WriteLine("Donner la Valeur n° " + pos);
+                valeur = Int16.Parse(Console.ReadLine());
+            } while ((valeur < min) || (valeur > max));
+            return valeur;
+        }
+
+        /// <summary>
+        /// Fonction ReadValeur Polymorphe 
+        /// </summary>
+        /// <param name="pos"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        static byte readValeur(int pos, byte min, byte max)
+        {
+            byte valeur;
+            do
+            {
+                Console.WriteLine("Donner la Valeur n° " + pos);
+                valeur = Byte.Parse(Console.ReadLine());
+            } while ((valeur < min) || (valeur > max));
+            return valeur;
+        }
+
+        static int sommeTable(short[] table){
+            int somme = 0;
+            for (int i = 0; i < table.Length; i++)
+                somme += (int)table[i];
+            return somme;
+        }
+
+        /// <summary>
+        /// Exercice 3
+        /// Fonction computeAVG2 permettant de calculer la moyenne de note dans 
+        /// un tableau déchiqueter
+        /// </summary>
+        /// <param name="nb">La taille du premier tableau</param>
+        static void computeAVG2(int nb)
+        { 
+            moyenne2 = new double [nb];
+            for (int i = 0; i < nb; i++) {
+                moyenne2[i] = 0;
+                int somcoef = 0;
+                for (int j = 0; j < notes2[i].Length; j++) {
+                    moyenne2[i] = moyenne2[i] + notes2[i][j] * coef[i][j];
+                    somcoef += coef[i][j];
+                }
+                    
+                moyenne2[i] = moyenne2[i] / somcoef;
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            int nb = readValeur(0, 1, 10);
+            fillnote2(nb);
+            computeAVG2(nb);
+            /// Affichage
+            for (int i = 0; i < moyenne2.Length; i++)
+                Console.WriteLine(moyenne2[i]);
+            Console.ReadLine();
+        }
+    }
+}
